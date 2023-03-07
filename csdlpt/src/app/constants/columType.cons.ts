@@ -1,0 +1,14 @@
+export enum COLUM_TYPE {
+  TEXT = 'TEXT',
+  NUMBER = 'NUMBER',
+  DATE = 'DATE',
+  DATE_TIME = 'DATE_TIME',
+  BOOLEAN = 'BOOLEAN',
+  OBJECT = 'OBJECT',
+  RECORD = 'RECORD',
+  ARRAY = 'ARRAY',
+  IMAGE = 'IMAGE',
+  FORMULA = 'FORMULA',
+  FILE = 'FILE',
+  SCRIPT = 'SCRIPT',
+}
