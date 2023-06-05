@@ -27,11 +27,10 @@ const FormEditDepartment = ({
     <Form
       disabled={loading}
       form={frmInputField}
-      labelCol={{ span: 6 }}
-      wrapperCol={{ span: 16 }}
+      layout="vertical"
       initialValues={source}
       autoComplete="off"
-      size="small"
+      // size="small"
       onFinish={onFinish}
       onFinishFailed={onFinishFailed}
     >
@@ -49,14 +48,18 @@ const FormEditDepartment = ({
         <Input />
       </Form.Item>
 
-      <Form.Item
-        wrapperCol={{
-          offset: 6,
-          span: 16,
-        }}
-      >
+      <Form.Item className="text-right">
+        {/* <Button
+          type="primary"
+          loading={loading}
+          onClick={() => {
+            nav(`/projects/${source?._id}`);
+          }}
+        >
+          Huỷ
+        </Button> */}
         {isCreate ? (
-          <Button type="default" htmlType="submit">
+          <Button type="primary" htmlType="submit">
             Tạo mới
           </Button>
         ) : (
@@ -64,39 +67,14 @@ const FormEditDepartment = ({
             <Button
               onClick={async () => {
                 setAction("UPDATE");
-                await new Promise((resolve) => setTimeout(resolve, 500));
+
                 //   frmInputField.submit();
               }}
               type="default"
               htmlType="submit"
               loading={rest?.loadingUpdate}
             >
-              Update
-            </Button>
-            <Popconfirm
-              title="Delete notification"
-              description="Are you sure to delete this?"
-              onConfirm={async () => {
-                setAction("DELETE");
-                await new Promise((resolve) => setTimeout(resolve, 500));
-                frmInputField.submit();
-              }}
-              okText="Yes"
-              cancelText="No"
-            >
-              <Button loading={rest?.loadingDetele} type="primary" danger>
-                Delete
-              </Button>
-            </Popconfirm>
-
-            <Button
-              type="primary"
-              loading={loading}
-              onClick={() => {
-                nav(`/projects/${source?._id}`);
-              }}
-            >
-              Continue
+              Cập nhật
             </Button>
           </Space>
         )}

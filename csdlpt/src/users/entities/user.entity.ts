@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import { Document, Types } from 'mongoose';
 
 export type UserDocument = User & Document;
 
@@ -15,9 +15,14 @@ export class User {
   ssoEmail: string;
   @Prop()
   password: string;
-
+  @Prop()
+  type?: string;
   @Prop()
   avatar: string;
+  @Prop({ type: Types.ObjectId, ref: 'doctors' })
+  doctorId?: Types.ObjectId;
+  @Prop({ type: Types.ObjectId, ref: 'patients' })
+  patientId?: Types.ObjectId;
 
   @Prop({ default: Math.floor(Math.random() * 1000) })
   otp: string;

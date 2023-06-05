@@ -46,7 +46,7 @@ const FormEditProject = ({
           <Button
             onClick={async () => {
               setAction("UPDATE");
-              await new Promise((resolve) => setTimeout(resolve, 500));
+
               //   frmInputField.submit();
             }}
             type="default"
@@ -60,7 +60,7 @@ const FormEditProject = ({
             description="Are you sure to delete this?"
             onConfirm={async () => {
               setAction("DELETE");
-              await new Promise((resolve) => setTimeout(resolve, 500));
+
               frmInputField.submit();
             }}
             okText="Yes"

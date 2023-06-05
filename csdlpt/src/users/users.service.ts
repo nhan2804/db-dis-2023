@@ -1,9 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { Model, Types } from 'mongoose';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User, UserDocument } from './entities/user.entity';
+import { ID } from 'src/app/types/ID';
 
 @Injectable()
 export class UsersService {
@@ -12,6 +13,31 @@ export class UsersService {
   ) {}
   async createUser(username: string, password: string): Promise<User> {
     return this.userModel.create({
+      username,
+      password,
+    });
+  }
+
+  async createPatientUser(
+    patientId: ID,
+    username: string,
+    password: string,
+  ): Promise<User> {
+    return this.userModel.create({
+      patientId: new Types.ObjectId(patientId),
+      type: 'PATIENT',
+      username,
+      password,
+    });
+  }
+  async createDoctorUser(
+    doctorId: ID,
+    username: string,
+    password: string,
+  ): Promise<User> {
+    return this.userModel.create({
+      doctorId: new Types.ObjectId(doctorId),
+      type: 'DOCTOR',
       username,
       password,
     });

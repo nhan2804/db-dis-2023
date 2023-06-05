@@ -21,7 +21,7 @@ const useLogin = () => {
         if (params.get("sso")) {
           navigate(`/sso${window.location.search}`, { replace: true });
         } else {
-          navigate("/home", { replace: true });
+          navigate("/doctors", { replace: true });
         }
       },
     }

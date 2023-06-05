@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { FilterQuery, Model, Types } from 'mongoose';
+import { Document, FilterQuery, Model, Types } from 'mongoose';
 import { ERROR_CODE } from '../../constants/error.cons';
 import { BaseDocument, BaseModel } from '../../models/base.schema';
 import { ULog, UResult, UThrowError } from 'src/helper/ulti';
 
 @Injectable()
-export class BaseService<T, S = T & BaseDocument> {
+export class BaseService<T, S = T & Document> {
   protected model: Model<S>;
   constructor(
     // @InjectModel(BaseModel.name)

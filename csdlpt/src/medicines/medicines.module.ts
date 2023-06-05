@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { MedicinesService } from './medicines.service';
 import { MedicinesController } from './medicines.controller';
 import { MongooseModule } from '@nestjs/mongoose';
-import { MedicineSchema } from './entities/medicine.entity';
+import { Medicine, MedicineSchema } from './entities/medicine.entity';
 
 @Module({
   controllers: [MedicinesController],
@@ -10,7 +10,7 @@ import { MedicineSchema } from './entities/medicine.entity';
   imports: [
     MongooseModule.forFeature([
       {
-        name: MedicinesModule.name,
+        name: Medicine.name,
         schema: MedicineSchema,
       },
     ]),

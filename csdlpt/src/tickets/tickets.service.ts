@@ -1,26 +1,17 @@
 import { Injectable } from '@nestjs/common';
 import { CreateTicketDto } from './dto/create-ticket.dto';
 import { UpdateTicketDto } from './dto/update-ticket.dto';
+import { AbstractService } from 'src/app/controllers/services/AbtrastService';
+import { Ticket, TicketDocument } from './entities/ticket.entity';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
 
 @Injectable()
-export class TicketsService {
-  create(createTicketDto: CreateTicketDto) {
-    return 'This action adds a new ticket';
-  }
-
-  findAll() {
-    return `This action returns all tickets`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} ticket`;
-  }
-
-  update(id: number, updateTicketDto: UpdateTicketDto) {
-    return `This action updates a #${id} ticket`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} ticket`;
+export class TicketsService extends AbstractService<Ticket> {
+  constructor(
+    @InjectModel(Ticket.name)
+    readonly model: Model<TicketDocument>,
+  ) {
+    super(model);
   }
 }

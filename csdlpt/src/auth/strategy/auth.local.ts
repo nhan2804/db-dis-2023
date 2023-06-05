@@ -8,7 +8,7 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
   constructor(
     private authService: AuthService, // private readonly jwt: JwtService,
   ) {
-    super();
+    super({});
   }
 
   async validate(

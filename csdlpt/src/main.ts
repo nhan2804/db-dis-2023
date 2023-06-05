@@ -13,18 +13,9 @@ async function bootstrap() {
   app.setGlobalPrefix('v1/api');
   // app.useGlobalGuards(AuthGuard(''));
   app.enableCors({
-    origin: [
-      'http://localhost:3000',
-      'http://localhost:3001',
-      'http://example.com',
-      'http://www.example.com',
-      'http://app.example.com',
-      'https://example.com',
-      'https://www.example.com',
-      'https://app.example.com',
-    ],
+    origin: true,
     methods: ['GET', 'POST', 'PATCH', 'DELETE', 'PUT'],
-    // credentials: true,
+    credentials: true,
   });
   await app.listen(5009);
 }

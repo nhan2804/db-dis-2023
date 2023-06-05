@@ -31,6 +31,7 @@ import { MedicinesModule } from './medicines/medicines.module';
 import { ServicesModule } from './services/services.module';
 import { PrescriptionsModule } from './prescriptions/prescriptions.module';
 import { BillsModule } from './bills/bills.module';
+import { MedicalVisitModule } from './medical-visit/medical-visit.module';
 // const hostname = 'vmi819824.contaboserver.net';
 @Module({
   imports: [
@@ -58,6 +59,7 @@ import { BillsModule } from './bills/bills.module';
     ServicesModule,
     PrescriptionsModule,
     BillsModule,
+    MedicalVisitModule,
   ],
   controllers: [AppController],
   providers: [
@@ -71,12 +73,12 @@ import { BillsModule } from './bills/bills.module';
     },
   ],
 })
-export class AppModule implements NestModule {
-  configure(consumer: MiddlewareConsumer) {
-    consumer.apply(LoggerMiddleware).forRoutes('/*');
-    consumer
-      .apply(FilterMiddleware)
-      .exclude({ path: '/public/*', method: RequestMethod.ALL })
-      .forRoutes('/*');
-  }
+export class AppModule {
+  // configure(consumer: MiddlewareConsumer) {
+  //   consumer.apply(LoggerMiddleware).forRoutes('/*');
+  //   consumer
+  //     .apply(FilterMiddleware)
+  //     .exclude({ path: '/public/*', method: RequestMethod.ALL })
+  //     .forRoutes('/*');
+  // }
 }

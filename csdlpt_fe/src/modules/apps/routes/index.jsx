@@ -6,10 +6,10 @@ const appRoutes = [
     path: "/app",
     isPrivate: true,
   },
-  {
-    component: AppHome,
-    path: "/",
-    isPrivate: true,
-  },
+  // {
+  //   component: AppHome,
+  //   path: "/",
+  //   isPrivate: true,
+  // },
 ];
 export default appRoutes;

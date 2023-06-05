@@ -1,11 +1,21 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { HospitalizationSlipService } from './hospitalization-slip.service';
 import { CreateHospitalizationSlipDto } from './dto/create-hospitalization-slip.dto';
 import { UpdateHospitalizationSlipDto } from './dto/update-hospitalization-slip.dto';
 
 @Controller('hospitalization-slip')
 export class HospitalizationSlipController {
-  constructor(private readonly hospitalizationSlipService: HospitalizationSlipService) {}
+  constructor(
+    private readonly hospitalizationSlipService: HospitalizationSlipService,
+  ) {}
 
   @Post()
   create(@Body() createHospitalizationSlipDto: CreateHospitalizationSlipDto) {
@@ -14,21 +24,27 @@ export class HospitalizationSlipController {
 
   @Get()
   findAll() {
-    return this.hospitalizationSlipService.findAll();
+    return this.hospitalizationSlipService.findAllWithoutPagination();
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.hospitalizationSlipService.findOne(+id);
+    return this.hospitalizationSlipService.findOneById(id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateHospitalizationSlipDto: UpdateHospitalizationSlipDto) {
-    return this.hospitalizationSlipService.update(+id, updateHospitalizationSlipDto);
+  update(
+    @Param('id') id: string,
+    @Body() updateHospitalizationSlipDto: UpdateHospitalizationSlipDto,
+  ) {
+    return this.hospitalizationSlipService.update(
+      id,
+      updateHospitalizationSlipDto,
+    );
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.hospitalizationSlipService.remove(+id);
+    return this.hospitalizationSlipService.remove(id);
   }
 }

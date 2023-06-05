@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { PrescriptionsService } from './prescriptions.service';
 import { CreatePrescriptionDto } from './dto/create-prescription.dto';
 import { UpdatePrescriptionDto } from './dto/update-prescription.dto';
@@ -14,21 +22,24 @@ export class PrescriptionsController {
 
   @Get()
   findAll() {
-    return this.prescriptionsService.findAll();
+    return this.prescriptionsService.findAllWithoutPagination();
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.prescriptionsService.findOne(+id);
+    return this.prescriptionsService.findOneById(id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updatePrescriptionDto: UpdatePrescriptionDto) {
-    return this.prescriptionsService.update(+id, updatePrescriptionDto);
+  update(
+    @Param('id') id: string,
+    @Body() updatePrescriptionDto: UpdatePrescriptionDto,
+  ) {
+    return this.prescriptionsService.update(id, updatePrescriptionDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.prescriptionsService.remove(+id);
+    return this.prescriptionsService.remove(id);
   }
 }

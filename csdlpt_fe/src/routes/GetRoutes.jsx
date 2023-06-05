@@ -1,13 +1,54 @@
 import ProtectedRoute from "@components/ProtectedRoute";
 import React, { memo, Suspense, lazy } from "react";
-
-import { Route, Routes, useRoutes } from "react-router";
-
-import { PacmanLoader } from "react-spinners";
-
+import { useRoutes } from "react-router";
+import { BarLoader, PacmanLoader } from "react-spinners";
 import DecalreRoutes from "./index";
-const NotFound = lazy(() => import("@components/NotFound"));
 function GetRoutes() {
+  const routeTransfer = (_route) => {
+    return _route?.map((route, indx) => {
+      const {
+        path,
+        component: Component,
+        isPrivate = false,
+        role,
+        exact,
+        match,
+        container,
+        ...rest
+      } = route;
+      return {
+        element: (
+          <ProtectedRoute
+            key={path}
+            path={path}
+            exact={exact}
+            // component={component}
+            isPrivate={isPrivate}
+            accessRole={role}
+            match={match}
+            {...rest}
+          >
+            {/* <Suspense
+              fallback={
+                <div className="flex items-center justify-center max-w-lg min-h-full mx-auto">
+                  <BarLoader
+                    color={"#00B649"}
+                    width={300}
+                    height={6}
+                    loading={true}
+                    size={60}
+                  />
+                </div>
+              }
+            > */}
+            <Component />
+            {/* </Suspense> */}
+          </ProtectedRoute>
+        ),
+        path: path,
+      };
+    });
+  };
   const routing = useRoutes(
     DecalreRoutes.map((route, indx) => {
       const {
@@ -35,7 +76,7 @@ function GetRoutes() {
           </ProtectedRoute>
         ),
         path: path,
-        children: children || [],
+        children: routeTransfer(children || []),
       };
     })
   );
@@ -43,8 +84,14 @@ function GetRoutes() {
     <div className="h-full">
       <Suspense
         fallback={
-          <div className="flex items-center justify-center max-w-lg min-h-full mx-auto">
-            <PacmanLoader loading={true} size={60} />
+          <div className="flex items-center justify-center h-screen max-w-lg min-h-full mx-auto">
+            <BarLoader
+              color={"#00B649"}
+              width={300}
+              height={6}
+              loading={true}
+              size={60}
+            />
           </div>
         }
       >

@@ -6,11 +6,9 @@ export type ServiceDocument = Service & Document;
 @Schema({ collection: 'services', timestamps: true })
 export class Service {
   @Prop()
-  code: string;
-  @Prop()
   name: string;
   @Prop()
-  total: number;
+  price: number;
   @Prop()
   unit: string;
 }

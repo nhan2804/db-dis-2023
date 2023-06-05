@@ -1,26 +1,20 @@
 import { Injectable } from '@nestjs/common';
 import { CreatePrescriptionDto } from './dto/create-prescription.dto';
 import { UpdatePrescriptionDto } from './dto/update-prescription.dto';
+import { InjectModel } from '@nestjs/mongoose';
+import {
+  Prescription,
+  PrescriptionDocument,
+} from './entities/prescription.entity';
+import { Model } from 'mongoose';
+import { AbstractService } from 'src/app/controllers/services/AbtrastService';
 
 @Injectable()
-export class PrescriptionsService {
-  create(createPrescriptionDto: CreatePrescriptionDto) {
-    return 'This action adds a new prescription';
-  }
-
-  findAll() {
-    return `This action returns all prescriptions`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} prescription`;
-  }
-
-  update(id: number, updatePrescriptionDto: UpdatePrescriptionDto) {
-    return `This action updates a #${id} prescription`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} prescription`;
+export class PrescriptionsService extends AbstractService<Prescription> {
+  constructor(
+    @InjectModel(Prescription.name)
+    readonly model: Model<PrescriptionDocument>,
+  ) {
+    super(model);
   }
 }

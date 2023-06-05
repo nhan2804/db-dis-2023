@@ -1,7 +1,4 @@
-import {
-  createDepartment,
-  deleteDepartment,
-} from "@modules/departments/services";
+import { deleteDepartment } from "@modules/departments/services";
 import { useMutation, useQueryClient } from "react-query";
 
 const useDeleteDepartment = () => {

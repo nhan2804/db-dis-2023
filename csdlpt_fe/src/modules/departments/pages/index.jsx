@@ -1,5 +1,5 @@
 import CustomDrawer from "@components/CustomDrawer";
-import { Button, Table } from "antd";
+import { Button, Popconfirm, Table } from "antd";
 import React, { useState } from "react";
 import { useRef } from "react";
 import FormEditDepartment from "../components/FormCreate";
@@ -7,32 +7,18 @@ import useCreateDepartment from "../hooks/mutate/useCreateDepartment";
 import useDeleteDepartment from "../hooks/mutate/useDeleteDepartment";
 import useUpdateDepartment from "../hooks/mutate/useUpdateDepartment";
 import useGetDepartment from "../hooks/query/useGetDepartment";
-
+import ModalSectionAntd from "@components/ModalSectionAntd";
+import {
+  FormOutlined,
+  SearchOutlined,
+  DeleteOutlined,
+} from "@ant-design/icons";
+import { PageHeader } from "@ant-design/pro-components";
+import { Content } from "antd/es/layout/layout";
 const DepartmentHome = () => {
   const refDrawerForm = useRef();
   const [selected, setSelected] = useState();
   const columns = [
-    {
-      title: "Mã phòng",
-      dataIndex: "code",
-      key: "v",
-      render: (text, record) => (
-        // <Button onClick={() => setSelected(record)}>{text}</Button>
-        <CustomDrawer
-          ref={refDrawerForm}
-          title={"CURD " + record?.name}
-          button={({ open }) => <Button onClick={open}>{text}</Button>}
-        >
-          {({ close }) => (
-            <FormEditDepartment
-              _id={record?._id}
-              source={record}
-              handleActions={(_, v) => handleModify(_, v, close)}
-            />
-          )}
-        </CustomDrawer>
-      ),
-    },
     {
       title: "Tên phòng",
       dataIndex: "name",
@@ -48,13 +34,50 @@ const DepartmentHome = () => {
       dataIndex: "email",
       key: "email",
     },
+    {
+      title: "Hành động",
+      dataIndex: "action",
+      key: "action",
+      render: (text, record) => {
+        return (
+          <div className="space-x-2">
+            <ModalSectionAntd
+              size={"2xl"}
+              ref={refDrawerForm}
+              title={"Cập nhật khoa"}
+              button={({ open }) => (
+                <Button icon={<FormOutlined />} onClick={open}>
+                  Sửa
+                </Button>
+              )}
+            >
+              {({ close }) => (
+                <FormEditDepartment
+                  _id={record?._id}
+                  source={record}
+                  handleActions={(_, v) => handleModify(_, v, close)}
+                />
+              )}
+            </ModalSectionAntd>
+            <Popconfirm
+              title="Xác nhận xoá?"
+              onConfirm={() => handleModify("DELETE", record)}
+            >
+              <Button danger icon={<DeleteOutlined />}>
+                Xoá
+              </Button>
+            </Popconfirm>
+          </div>
+        );
+      },
+    },
   ];
 
   const { mutate: create, isLoading: isLoadingCreate } = useCreateDepartment();
   const { mutate: update, isLoading: isl } = useUpdateDepartment();
   const { mutate: deleteP, isLoading: isld } = useDeleteDepartment();
-  const { data: departments } = useGetDepartment();
-  const handleA = (_, v, close) => {
+  const { data: departments, isLoading: isGetLoading } = useGetDepartment();
+  const handleCreate = (_, v, close) => {
     create(v, {
       onSuccess: close,
     });
@@ -70,32 +93,38 @@ const DepartmentHome = () => {
   };
 
   return (
-    <div>
-      <CustomDrawer
-        ref={refDrawerForm}
-        title={"CURD Phòng ban"}
-        button={({ open }) => (
-          <Button type="primary" onClick={open}>
-            Tạo mới
-          </Button>
-        )}
-      >
-        {({ close }) => (
-          <FormEditDepartment
-            isCreate
-            handleActions={(_, v) => handleA(_, v, close)}
-          />
-        )}
-      </CustomDrawer>
-      <div>
-        <div className="text-2xl ">Danh sách phòng ban</div>
+    <>
+      <PageHeader
+        title="Danh sách khoa"
+        extra={
+          <ModalSectionAntd
+            ref={refDrawerForm}
+            title={"Tạo khoa"}
+            button={({ open }) => (
+              <Button type="primary" onClick={open}>
+                Tạo mới
+              </Button>
+            )}
+          >
+            {({ close }) => (
+              <FormEditDepartment
+                isCreate
+                handleActions={(_, v) => handleCreate(_, v, close)}
+              />
+            )}
+          </ModalSectionAntd>
+        }
+      />
+
+      <Content>
         <Table
           size="large"
-          dataSource={departments?.payload}
+          loading={isGetLoading}
+          dataSource={departments}
           columns={columns}
         />
-      </div>
-    </div>
+      </Content>
+    </>
   );
 };
 

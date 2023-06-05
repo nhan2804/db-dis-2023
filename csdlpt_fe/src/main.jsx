@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { StyleProvider } from "@ant-design/cssinjs";
 
 import App from "./App";
 import { theme } from "@config/theme";
@@ -23,7 +24,9 @@ ReactDOM.render(
         <PersistGate loading={null} persistor={persistor}>
           <BrowserRouter basename={import.meta.env.PUBLIC_URL}>
             <QueryClientProvider client={qc}>
-              <App />
+              <StyleProvider hashPriority="high">
+                <App />
+              </StyleProvider>
             </QueryClientProvider>
           </BrowserRouter>
         </PersistGate>

@@ -14,7 +14,11 @@ export class Medicine {
   @Prop()
   unit: string;
   @Prop()
-  quantity: string;
+  quantity: number;
+  @Prop()
+  category: number;
+  @Prop()
+  description?: string;
 }
 
 export const MedicineSchema = SchemaFactory.createForClass(Medicine);

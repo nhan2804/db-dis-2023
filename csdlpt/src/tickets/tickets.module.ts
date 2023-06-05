@@ -2,7 +2,9 @@ import { Module } from '@nestjs/common';
 import { TicketsService } from './tickets.service';
 import { TicketsController } from './tickets.controller';
 import { MongooseModule } from '@nestjs/mongoose';
-import { TicketSchema } from './entities/ticket.entity';
+import { Ticket, TicketSchema } from './entities/ticket.entity';
+import { Prescription } from 'src/prescriptions/entities/prescription.entity';
+import { PrescriptionsModule } from 'src/prescriptions/prescriptions.module';
 
 @Module({
   controllers: [TicketsController],
@@ -10,10 +12,12 @@ import { TicketSchema } from './entities/ticket.entity';
   imports: [
     MongooseModule.forFeature([
       {
-        name: TicketsModule.name,
+        name: Ticket.name,
         schema: TicketSchema,
       },
     ]),
+    PrescriptionsModule,
   ],
+  exports: [TicketsService],
 })
 export class TicketsModule {}

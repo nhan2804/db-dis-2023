@@ -15,7 +15,6 @@ import { useAppSelector } from "@hooks/reduxHook";
 // const loadFeatures = () =>
 // import("./config/framer-motion").then((res) => res.default);
 function App() {
-  axios.get("");
   const darkMode = useAppSelector((state) => state.dark.isDark);
   return (
     <div className={`${darkMode ? "dark" : ""} h-full`}>

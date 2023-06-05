@@ -23,7 +23,7 @@ export class DepartmentsController extends BaseController<Department> {
 
   @Post()
   create(@Body() createDepartmentDto: CreateDepartmentDto) {
-    return this.departmentsService.baseCreate(createDepartmentDto);
+    return this.departmentsService.create(createDepartmentDto);
   }
   @Patch('/:id')
   //current user
@@ -35,15 +35,15 @@ export class DepartmentsController extends BaseController<Department> {
     // Ex: reset some fields if role of session not allow
 
     /*Check double xid [redis]*/
-    return this.service.baseUpdateOne(id, body as any);
+    return this.departmentsService.update(id, body as any);
   }
   @Get()
   findAll() {
-    return this.departmentsService.baseFilter();
+    return this.departmentsService.findAllWithoutPagination();
   }
   @Delete('/:id')
   //current user
   async deleteP(@Param('id', ValidIdPipe) id: string) {
-    return this.service.baseDeleteOnce(id);
+    return this.departmentsService.remove(id);
   }
 }

@@ -15,9 +15,6 @@ export class Department {
   leader: string;
   @Prop()
   email: string;
-
-  //   @Prop({ type: SchemaTypes.ObjectId, ref: User.name })
-  //   owner: Types.ObjectId;
 }
 
 export const DepartmentSchema = SchemaFactory.createForClass(Department);

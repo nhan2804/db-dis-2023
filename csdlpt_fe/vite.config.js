@@ -41,6 +41,7 @@ const config = ({ command }) => ({
       "@data": resolve(__dirname, "./src/data"),
       "@redux": resolve(__dirname, "./src/redux"),
       "@icon": resolve(__dirname, "./src/common/components/icons"),
+      "@layout": resolve(__dirname, "./src/layout"),
       "@defines": resolve(__dirname, "./src/defines"),
     },
   },
@@ -51,11 +52,11 @@ const config = ({ command }) => ({
         global: "globalThis",
       },
       // Enable esbuild polyfill plugins
-      plugins: [
-        NodeGlobalsPolyfillPlugin({
-          buffer: true,
-        }),
-      ],
+      // plugins: [
+      //   NodeGlobalsPolyfillPlugin({
+      //     buffer: true,
+      //   }),
+      // ],
     },
   },
 });

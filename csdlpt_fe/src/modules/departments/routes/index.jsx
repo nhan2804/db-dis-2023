@@ -3,7 +3,8 @@ const DepartmentHome = lazy(() => import("../pages"));
 const depRoutes = [
   {
     component: DepartmentHome,
-    path: "/departments",
+    path: "departments",
+    exact: true,
   },
 ];
 export default depRoutes;
